@@ -12,6 +12,11 @@ Nuestro objetivo es construir un juego en el que podamos controlar al personaje 
 
 Definir casos de prueba y realizar los tests correspondientes para los requerimientos dados.
 
+
+
+
+
+
 ## Personaje
 
 El personaje se mueve por el tablero con las flechas.
@@ -32,6 +37,18 @@ Al apretar la tecla `G`, debe cambiar de género.
 Escribir los tests que validen la imagen que devuelve el personaje en cada posible combinación.
 
 > **Nota:** Se puede construir un objeto cualquiera adicional para probar el cambio de imagen.
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 1. Sembrar
 
@@ -67,6 +84,18 @@ Probar el siguiente caso de ejemplo:
 * El personaje planta el trigo.
 * Verificar que la posición del trigo es `(6,6)`.
 * Verificar que los cultivos de la granja son el tomaco y el trigo.
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 2. Regar
 
