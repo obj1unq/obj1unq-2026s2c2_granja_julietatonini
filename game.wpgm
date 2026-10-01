@@ -37,6 +37,7 @@ program lagranja {
 	keyboard.m().onPressDo({personaje.plantar(maiz)})
 	keyboard.t().onPressDo({personaje.plantar(trigo)})
 	keyboard.o().onPressDo({personaje.plantar(tomaco)})
+	keyboard.r().onPressDo({personaje.regar()})
 
 
  	//  COMIENZA

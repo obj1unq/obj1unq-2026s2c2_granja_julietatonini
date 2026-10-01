@@ -109,9 +109,19 @@ Si no hay una planta, no se puede realizar la acción y debe lanzarse un error i
 
 | Planta     | Efecto al ser regada                                                                                                                                                                                               |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Maíz**   | Si es bebé, pasa a adulta y la imagen que se muestra es `maiz_adulto.png`. Si ya es adulta, no hace nada.                                                                                                          |
-| **Trigo**  | Pasa a la etapa de evolución siguiente: de 0 a 1, de 1 a 2, de 2 a 3 y de 3 vuelve a 0. La imagen que se muestra en cada etapa es `trigo_x.png`, donde `x` corresponde al número de la etapa de evolución.         |
-| **Tomaco** | Se mueve a la celda inmediatamente superior. Si estaba en la fila más alta (`y = height - 1`), pasa a la fila más baja (`y = 0`). Pero si la celda objetivo tenía otro cultivo, no se mueve y se queda donde está. |
+| **Maíz**   | Si es bebé, pasa a adulta y la imagen que se muestra es `maiz_adulto.png`. Si ya es adulta, no 
+               hace nada.                                                                                                 
+             |
+| **Trigo**  | Pasa a la etapa de evolución siguiente: de 0 a 1, de 1 a 2, de 2 a 3 y de 3 vuelve a 0. 
+               La imagen que se muestra en cada etapa es `trigo_x.png`, donde `x` corresponde al número de la 
+               etapa de evolución.    
+             |
+| **Tomaco** | Se mueve a la celda inmediatamente superior. Si estaba en la fila más alta (`y = height - 1`), 
+               pasa a la fila más baja (`y = 0`). Pero si la celda objetivo tenía otro cultivo, no se mueve y se 
+               queda donde está. |
+
+
+
 
 Probar los siguientes ejemplos:
 
@@ -156,6 +166,25 @@ Probar los siguientes ejemplos:
 * Ubicar al personaje en `(3,0)`.
 * Regar.
 * Verificar que la posición del tomaco sigue siendo `(3,0)`.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 3. Cosecha
 

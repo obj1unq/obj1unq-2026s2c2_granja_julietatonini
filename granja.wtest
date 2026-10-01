@@ -81,4 +81,58 @@ describe "test de la granja" {
     }
 
 
+
+    test "sin cultivo no se puede regar"{
+        assert.throwsException({personaje.regar()})
+    }
+
+
+
+    test "maiz"{
+        personaje.plantar(maiz)
+        assert.equals("maiz_bebe.png", maiz.image())
+        personaje.regar()
+        assert.equals("maiz_adulto.png", maiz.image())
+        personaje.regar()
+        assert.equals("maiz_adulto.png", maiz.image())
+    }
+
+
+
+    test "trigo"{
+        personaje.plantar(trigo)
+        assert.equals("trigo_0.png", trigo.image())
+        personaje.regar()
+        assert.equals("trigo_1.png", trigo.image())
+        personaje.regar()
+        assert.equals("trigo_2.png", trigo.image())
+        personaje.regar()
+        assert.equals("trigo_3.png", trigo.image())
+        personaje.regar()
+        assert.equals("trigo_0.png", trigo.image())
+    }
+
+
+
+    test "tomaco"{
+        game.height(5)
+        game.width(5)
+        personaje.position(game.at(3,3))
+        personaje.plantar(tomaco)
+        personaje.regar()
+        assert.equals(3, tomaco.position().x())
+        assert.equals(4, tomaco.position().y())
+        personaje.position(game.at(3,4))
+        personaje.regar()
+        assert.equals(3, tomaco.position().x())
+        assert.equals(0, tomaco.position().y())
+        personaje.position(game.at(3,1))
+        personaje.plantar(trigo)
+        personaje.position(game.at(3,0))
+        personaje.regar()
+        assert.equals(3, tomaco.position().x())
+        assert.equals(0, tomaco.position().y())
+    }
+
 }
+
