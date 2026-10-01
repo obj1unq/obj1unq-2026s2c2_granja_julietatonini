@@ -202,6 +202,10 @@ El acto de cosechar una planta implica que esta desaparece visualmente del juego
 
 > **Nota:** En este punto no interesa qué pasa con el juego si se siembra un cultivo que ya fue cosechado, ya que la mejor manera de resolver esto es con herramientas que todavía no hemos visto en la materia.
 
+
+
+
+
 Probar el siguiente ejemplo:
 
 * Ubicar el personaje en `(3,3)`.
@@ -226,6 +230,27 @@ Probar el siguiente ejemplo:
 * Cosechar.
 * Verificar que ya no hay cultivos en la granja.
 * Verificar que el tomaco, el maíz y el trigo son los cultivos cosechados de la granja.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 4. Venta
 

@@ -77,6 +77,19 @@ object personaje {
 	method hayCultivoAca(){
 		return granja.cultivos().any({cultivo => cultivo.position() == self.position()})
 	}
+
+
+	method cosechar(){
+		self.validarCosechar()
+		granja.cosecha(self.position())
+	}
+
+
+	method validarCosechar(){
+		if (not self.hayCultivoAca() or not granja.cultivoAca(self.position()).estaMaduro()) {
+			self.error("no se puede cosechar acá")
+		}
+	}
 	
 }
 
@@ -96,6 +109,9 @@ object mercado {
 object granja {
 	
 	const property cultivos = #{}
+
+	const property cosechas = #{}
+
 
 	method plantar(cultivo, position) {
 		self.validarPlantar(cultivo, position)
@@ -124,6 +140,14 @@ object granja {
 
 	method cultivoAca(position){
 		return cultivos.find({cultivo => cultivo.position() == position})
+	}
+
+
+	method cosecha(position){
+		const cultivo = self.cultivoAca(position)  // lo guardo en una const para no perder el cultivo, porque si lo elimino de cultivos, self.cultivoAca(position) me devuelve error
+		cosechas.add(cultivo)
+		cultivos.remove(cultivo)
+		game.removeVisual(cultivo)
 	}
 }
 
@@ -157,6 +181,11 @@ object maiz {
 
 	method crecer(){
 		self.image("maiz_adulto.png")
+	}
+
+
+	method estaMaduro(){
+		return self.image() == "maiz_adulto.png"
 	}
 }
 
@@ -196,6 +225,12 @@ object trigo {
 			self.image("trigo_0.png") 
 		}
 	}
+
+
+	method estaMaduro(){
+		return self.image() == "trigo_2.png" or self.image() == "trigo_3.png"
+		
+	}
 }
 
 
@@ -212,8 +247,9 @@ object tomaco {
 
 
 	method regado() {
-    	if (not granja.hayCultivo(self.posicionSiguiente())) {   // no sé si hay alguna forma de hacer que no llame dos veces a self.posicionSiguiente()
-        self.position(self.posicionSiguiente())
+		const posicion = self.posicionSiguiente()
+    	if (not granja.hayCultivo(posicion)) {   
+        self.position(posicion)
     	}
 	}
 
@@ -224,6 +260,11 @@ object tomaco {
         	return game.at(self.position().x(), 0)
     	}
     	return game.at(self.position().x(), self.position().y() + 1)
+	}
+
+
+	method estaMaduro() {
+		return true
 	}
 
 

@@ -134,5 +134,32 @@ describe "test de la granja" {
         assert.equals(0, tomaco.position().y())
     }
 
+
+
+    test "cosechar"{
+        personaje.position(game.at(3,3))
+        assert.throwsException({personaje.cosechar()})
+        personaje.plantar(tomaco)
+        personaje.cosechar()
+        assert.that(granja.cultivos().isEmpty())
+        assert.equals(#{tomaco}, granja.cosechas())
+        personaje.plantar(maiz)
+        assert.throwsException({personaje.cosechar()})
+        personaje.regar()
+        personaje.cosechar()
+        assert.that(granja.cultivos().isEmpty())
+        assert.equals(#{tomaco, maiz}, granja.cosechas())
+        personaje.plantar(trigo)
+        assert.throwsException({personaje.cosechar()})
+        personaje.regar()
+        assert.throwsException({personaje.cosechar()})
+        personaje.regar()
+        assert.that(trigo.estaMaduro())
+        personaje.regar()
+        personaje.cosechar()
+        assert.that(granja.cultivos().isEmpty())
+        assert.equals(#{tomaco, maiz, trigo}, granja.cosechas())
+    }
+
 }
 
