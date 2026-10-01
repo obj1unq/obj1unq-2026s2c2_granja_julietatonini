@@ -5,6 +5,8 @@ import granja.*
 describe "test de la granja" {
 
 
+// ## Personaje
+
     test "personaje femenino mirando al frente" {
         personaje.genero(femenino)
         assert.equals("f-player-normal.png", personaje.image())
@@ -13,7 +15,7 @@ describe "test de la granja" {
 
     test "personaje femenino mirando hacia abajo" {
         personaje.genero(femenino)
-        game.addVisual(objetoDePrueba)
+        personaje.plantar(maiz)
         assert.equals("f-player-abajo.png", personaje.image())
     }
 
@@ -26,7 +28,7 @@ describe "test de la granja" {
 
     test "personaje masculino mirando hacia abajo" {
         personaje.genero(masculino)
-        game.addVisual(objetoDePrueba)
+        personaje.plantar(maiz)
         assert.equals("m-player-abajo.png", personaje.image())
     }
 
@@ -38,6 +40,7 @@ describe "test de la granja" {
     }
 
 
+// ## 1. Sembrar
 
     test "sembrar tomate en esta posicion"{
         personaje.position(game.at(5,5))
@@ -81,6 +84,8 @@ describe "test de la granja" {
     }
 
 
+
+// ## 2. Regar
 
     test "sin cultivo no se puede regar"{
         assert.throwsException({personaje.regar()})
@@ -136,6 +141,8 @@ describe "test de la granja" {
 
 
 
+// ## 3. Cosecha
+
     test "cosechar"{
         personaje.position(game.at(3,3))
         assert.throwsException({personaje.cosechar()})
@@ -159,6 +166,55 @@ describe "test de la granja" {
         personaje.cosechar()
         assert.that(granja.cultivos().isEmpty())
         assert.equals(#{tomaco, maiz, trigo}, granja.cosechas())
+    }
+
+
+
+// ## 4. Venta
+
+    test "valor de las cosechas"{
+        personaje.position(game.at(3,3))
+        personaje.plantar(tomaco)
+        personaje.regar()
+        personaje.position(game.at(3,4)) 
+        personaje.cosechar()
+        personaje.plantar(maiz)
+        personaje.regar()
+        assert.that(maiz.estaMaduro())
+        personaje.cosechar()
+        personaje.plantar(trigo) 
+        personaje.regar()
+        personaje.regar()
+        assert.that(trigo.estaMaduro())
+        personaje.cosechar()    
+        assert.equals("Tengo 3 plantas para vender por 330 monedas", personaje.plantasParaVenderYValor())
+        assert.equals("Tengo 0 monedas", personaje.oroTotal())
+        //ahora vamos a vender las cosechas
+        personaje.position(game.at(5,4))
+        assert.throwsException({personaje.vender()})
+        personaje.position(game.at(5,5))
+        personaje.vender()
+        assert.equals("Tengo 330 monedas", personaje.oroTotal())
+        assert.equals("Tengo 0 plantas para vender por 0 monedas", personaje.plantasParaVenderYValor())
+        assert.that(granja.cosechas().isEmpty())
+        assert.equals(330, granja.oro())
+    }
+
+
+
+    test "no se puede sembrar en el mercado"{
+        personaje.position(game.at(5,5))
+        assert.throwsException({personaje.plantar(maiz)})
+    }
+
+
+    test "el tomaco no se puede mover a la posicion del mercado"{
+        personaje.position(game.at(5,4))
+        personaje.plantar(tomaco)
+        personaje.regar()
+        assert.equals(5, tomaco.position().x())
+        assert.equals(0, tomaco.position().y())
+        // el tomaco se fue a la fila mas baja por haber estado en la fila mas alta, que coincidía con la posicion del mercado, pero no se puede mover a la posicion del mercado, entonces se mueve a la fila mas baja
     }
 
 }

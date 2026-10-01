@@ -39,6 +39,8 @@ program lagranja {
 	keyboard.o().onPressDo({personaje.plantar(tomaco)})
 	keyboard.r().onPressDo({personaje.regar()})
 	keyboard.c().onPressDo({personaje.cosechar()})
+	keyboard.space().onPressDo({personaje.plantasParaVenderYValor()})
+	
 	
 
 

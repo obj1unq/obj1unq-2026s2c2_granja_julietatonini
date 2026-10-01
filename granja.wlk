@@ -90,7 +90,29 @@ object personaje {
 			self.error("no se puede cosechar acá")
 		}
 	}
+
+
+	method vender(){
+		self.validarVender()
+		granja.vender()
+	}
+
+
+	method validarVender(){
+		if (self.position() != mercado.position()) {
+        	self.error("no estoy en el mercado")
+    	}
+	}
 	
+
+	method plantasParaVenderYValor(){
+		return "Tengo " + granja.cosechas().size() + " plantas para vender por " + granja.valorCosechas() + " monedas"
+	}
+
+
+	method oroTotal(){
+		return "Tengo " + granja.oro() + " monedas"
+	}
 }
 
 
@@ -112,6 +134,8 @@ object granja {
 
 	const property cosechas = #{}
 
+	var property oro = 0
+
 
 	method plantar(cultivo, position) {
 		self.validarPlantar(cultivo, position)
@@ -129,12 +153,17 @@ object granja {
 
 
 	method puedePlantar(cultivo, position) {
-		return not cultivos.contains(cultivo) and not self.hayCultivo(position)
+		return not cultivos.contains(cultivo) and not self.hayCultivo(position) and not self.hayMercado(position)
 	}
 
 	
 	method hayCultivo(position) {
 		return cultivos.any({cultivo => cultivo.position() == position})
+	}
+
+
+	method hayMercado(position) {
+		return mercado.position() == position
 	}
 
 
@@ -148,6 +177,17 @@ object granja {
 		cosechas.add(cultivo)
 		cultivos.remove(cultivo)
 		game.removeVisual(cultivo)
+	}
+
+
+	method valorCosechas() {
+    	return cosechas.sum({cultivo => cultivo.valor()})
+	}
+
+
+	method vender(){
+		oro += self.valorCosechas()
+		cosechas.clear()
 	}
 }
 
@@ -186,6 +226,11 @@ object maiz {
 
 	method estaMaduro(){
 		return self.image() == "maiz_adulto.png"
+	}
+
+
+	method valor(){
+		return 150
 	}
 }
 
@@ -231,6 +276,15 @@ object trigo {
 		return self.image() == "trigo_2.png" or self.image() == "trigo_3.png"
 		
 	}
+
+
+
+	method valor(){
+		if (self.image() == "trigo_2.png") {
+			return 100
+		} 
+		return 200
+	}
 }
 
 
@@ -248,7 +302,7 @@ object tomaco {
 
 	method regado() {
 		const posicion = self.posicionSiguiente()
-    	if (not granja.hayCultivo(posicion)) {   
+    	if (not granja.hayCultivo(posicion) and not granja.hayMercado(posicion)) {   
         self.position(posicion)
     	}
 	}
@@ -265,6 +319,11 @@ object tomaco {
 
 	method estaMaduro() {
 		return true
+	}
+
+
+	method valor(){
+		return 80
 	}
 
 

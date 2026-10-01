@@ -289,3 +289,4 @@ Modificar la validación al sembrar. Esto impacta también en el movimiento del 
 
 Si elegís esta opción, tenés que tener cuidado con la colisión, ya que el mercado puede colisionar con el personaje, pero también con un tomaco u otros cultivos.
 
+
